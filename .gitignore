@@ -19,6 +19,10 @@ replay-recordings/
 
 ### Minecraft run directories ###
 /run/
+/run-data
+
+### caches ###
+/src/generated/resources/.cache
 
 ### Misc ###
 *.tmp
