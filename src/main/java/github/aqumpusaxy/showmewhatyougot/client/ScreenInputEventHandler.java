@@ -2,6 +2,8 @@ package github.aqumpusaxy.showmewhatyougot.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import github.aqumpusaxy.showmewhatyougot.lib.Constants;
+import github.aqumpusaxy.showmewhatyougot.network.SMWYGNetworkManager;
+import github.aqumpusaxy.showmewhatyougot.network.ShowItemPacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -11,12 +13,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Constants.MODID, value = Dist.CLIENT)
 public class ScreenInputEventHandler {
@@ -40,7 +38,7 @@ public class ScreenInputEventHandler {
             ItemStack itemStack = hoveredSlot.getItem();
             if (itemStack.isEmpty()) return;
 
-            player.sendSystemMessage(itemStack.getDisplayName());
+            SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack));
         }
     }
 }

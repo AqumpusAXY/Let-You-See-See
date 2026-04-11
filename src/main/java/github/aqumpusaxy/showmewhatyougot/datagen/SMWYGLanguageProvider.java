@@ -4,10 +4,10 @@ import github.aqumpusaxy.showmewhatyougot.lib.Constants;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class ModLanguageProvider extends LanguageProvider {
+public class SMWYGLanguageProvider extends LanguageProvider {
     private final String LOCALE;
 
-    public ModLanguageProvider(PackOutput output, String modid, String locale) {
+    public SMWYGLanguageProvider(PackOutput output, String modid, String locale) {
         super(output, modid, locale);
         this.LOCALE = locale;
     }

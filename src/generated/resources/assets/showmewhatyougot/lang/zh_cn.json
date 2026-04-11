@@ -1,4 +1,5 @@
 {
+  "chat.showmewhatyougot.send_item": "<%s> %s",
   "key.categories.showmewhatyougot": "Show Me What You Got",
   "key.showmewhatyougot.send_hover_item": "发送物品至聊天栏"
 }
