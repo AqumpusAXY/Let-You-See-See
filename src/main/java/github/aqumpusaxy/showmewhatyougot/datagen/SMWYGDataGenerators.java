@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModDataGenerators {
+public class SMWYGDataGenerators {
     private static final Set<String> LANG_KEYS = Set.of(
             "en_us",
             "zh_cn"
@@ -20,7 +20,7 @@ public class ModDataGenerators {
         PackOutput output = event.getGenerator().getPackOutput();
 
         for (String langKey : LANG_KEYS) {
-            event.getGenerator().addProvider(event.includeClient(), new ModLanguageProvider(
+            event.getGenerator().addProvider(event.includeClient(), new SMWYGLanguageProvider(
                     output,
                     Constants.MODID,
                     langKey
