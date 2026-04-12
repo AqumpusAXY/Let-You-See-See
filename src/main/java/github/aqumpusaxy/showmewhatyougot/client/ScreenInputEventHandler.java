@@ -1,6 +1,7 @@
 package github.aqumpusaxy.showmewhatyougot.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import github.aqumpusaxy.showmewhatyougot.compat.jei.JeiScreenInputHandler;
 import github.aqumpusaxy.showmewhatyougot.lib.Constants;
 import github.aqumpusaxy.showmewhatyougot.network.SMWYGNetworkManager;
 import github.aqumpusaxy.showmewhatyougot.network.ShowItemPacket;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Constants.MODID, value = Dist.CLIENT)
@@ -33,12 +35,14 @@ public class ScreenInputEventHandler {
             if (!(screen instanceof AbstractContainerScreen<?> containerScreen)) return;
 
             Slot hoveredSlot = containerScreen.getSlotUnderMouse();
-            if (hoveredSlot == null) return;
+            if (hoveredSlot != null) {
+                ItemStack itemStack = hoveredSlot.getItem();
+                if (itemStack.isEmpty()) return;
 
-            ItemStack itemStack = hoveredSlot.getItem();
-            if (itemStack.isEmpty()) return;
-
-            SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack));
+                SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack));
+            } else if (ModList.get().isLoaded("jei")) {
+                JeiScreenInputHandler.handleJeiInput();
+            }
         }
     }
 }
