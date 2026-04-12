@@ -1,6 +1,5 @@
 package github.aqumpusaxy.showmewhatyougot.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
