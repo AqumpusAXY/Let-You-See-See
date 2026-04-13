@@ -22,16 +22,20 @@ public class JeiScreenInputHandler {
     }
 
     public static void handleJeiInput() {
-        if (ingredientListOverlay == null) return;
-        ingredientListOverlay.getIngredientUnderMouse()
-                .flatMap(ITypedIngredient::getItemStack)
-                .ifPresent(itemStack -> SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack)));
+        if (ingredientListOverlay != null) {
+            ingredientListOverlay.getIngredientUnderMouse()
+                    .flatMap(ITypedIngredient::getItemStack)
+                    .ifPresent(itemStack -> SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack)));
 
-        if (bookmarkOverlay == null) return;
-        bookmarkOverlay.getIngredientUnderMouse()
-                .flatMap(ITypedIngredient::getItemStack)
-                .ifPresent(itemStack -> SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack)));
+        }
 
-        //TODO:配方界面物品兼容, 兼容JEI的其他Type, 点击聊天栏中的物品添加到书签
+        if (bookmarkOverlay != null) {
+            bookmarkOverlay.getIngredientUnderMouse()
+                    .flatMap(ITypedIngredient::getItemStack)
+                    .ifPresent(itemStack -> SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack)));
+
+        }
+
+        //TODO:兼容JEI的其他Type, 点击聊天栏中的物品添加到书签
     }
 }
