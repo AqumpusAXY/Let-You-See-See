@@ -32,15 +32,17 @@ public class ScreenInputEventHandler {
             if (player == null) return;
 
             Screen screen = event.getScreen();
-            if (!(screen instanceof AbstractContainerScreen<?> containerScreen)) return;
+            if (screen instanceof AbstractContainerScreen<?> containerScreen) {
+                Slot hoveredSlot = containerScreen.getSlotUnderMouse();
+                if (hoveredSlot == null) return;
 
-            Slot hoveredSlot = containerScreen.getSlotUnderMouse();
-            if (hoveredSlot != null) {
                 ItemStack itemStack = hoveredSlot.getItem();
                 if (itemStack.isEmpty()) return;
 
                 SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack));
-            } else if (ModList.get().isLoaded("jei")) {
+            }
+
+            if (ModList.get().isLoaded("jei")) {
                 JeiScreenInputHandler.handleJeiInput();
             }
         }
