@@ -8,22 +8,27 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
+import org.spongepowered.asm.mixin.Mutable;
 
 import java.util.function.Supplier;
 
 public class ShowItemPacket {
-    private final ItemStack ITEM_STACK;
+    private final Component COMPONENT;
 
     public ShowItemPacket(ItemStack itemStack) {
-        this.ITEM_STACK = itemStack;
+        this.COMPONENT = itemStack.getDisplayName();
     }
 
-    public ShowItemPacket(FriendlyByteBuf buf) {
-        this.ITEM_STACK = buf.readItem();
+    public ShowItemPacket(Component component) {
+        this.COMPONENT = component;
     }
 
     public void encode(FriendlyByteBuf buf) {
-        buf.writeItem(ITEM_STACK);
+        buf.writeComponent(COMPONENT);
+    }
+
+    public static ShowItemPacket decode(FriendlyByteBuf buf) {
+        return new ShowItemPacket(buf.readComponent());
     }
 
     public static void handle(ShowItemPacket msg, Supplier<NetworkEvent.Context> ctx) {
@@ -31,12 +36,11 @@ public class ShowItemPacket {
             ServerPlayer sender = ctx.get().getSender();
             if (sender == null) return;
 
-            Component itemInfo = msg.ITEM_STACK.getDisplayName();
             MutableComponent chatMessage = MutableComponent.create(ComponentContents.EMPTY)
                     .append("<")
                     .append(sender.getDisplayName())
                     .append("> ")
-                    .append(itemInfo);
+                    .append(msg.COMPONENT);
 
             MinecraftServer server = sender.getServer();
             if (server == null) return;
