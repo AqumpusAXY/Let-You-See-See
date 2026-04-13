@@ -22,7 +22,7 @@ public class SMWYGNetworkManager {
                 packetId++,
                 ShowItemPacket.class,
                 ShowItemPacket::encode,
-                ShowItemPacket::new,
+                ShowItemPacket::decode,
                 ShowItemPacket::handle
         );
     }
