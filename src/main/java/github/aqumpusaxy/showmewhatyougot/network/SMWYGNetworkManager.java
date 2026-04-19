@@ -1,12 +1,14 @@
 package github.aqumpusaxy.showmewhatyougot.network;
 
 import github.aqumpusaxy.showmewhatyougot.lib.Constants;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class SMWYGNetworkManager {
     private static final String PROTOCOL_VERSION = "1";
+    private static int packetId = 0;
 
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(Constants.MODID, "main"),
@@ -14,8 +16,6 @@ public class SMWYGNetworkManager {
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-
-    private static int packetId = 0;
 
     public static void register() {
         INSTANCE.registerMessage(
@@ -25,5 +25,10 @@ public class SMWYGNetworkManager {
                 ShowItemPacket::decode,
                 ShowItemPacket::handle
         );
+    }
+
+    public static void sendComponentToServer(Component component) {
+        if (component.equals(Component.empty())) return;
+        INSTANCE.sendToServer(new ShowItemPacket(component));
     }
 }
