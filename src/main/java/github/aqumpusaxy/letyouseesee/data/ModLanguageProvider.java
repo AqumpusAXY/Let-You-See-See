@@ -22,14 +22,13 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void addChineseTranslations() {
-        //TODO: 起中文名
-        add(Constants.KEY_CATEGORY_NAME, "Show Me What You Got");
+        add(Constants.KEY_CATEGORY_NAME, "让你看看");
 
         add(Constants.SEND_HOVER_ITEM_KEY_NAME, "发送物品至聊天栏");
     }
 
     private void addEnglishTranslations() {
-        add(Constants.KEY_CATEGORY_NAME, "Show Me What You Got");
+        add(Constants.KEY_CATEGORY_NAME, "Let You See See");
 
         add(Constants.SEND_HOVER_ITEM_KEY_NAME, "Send Item To Chat");
     }
