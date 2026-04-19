@@ -6,18 +6,12 @@ import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import org.spongepowered.asm.mixin.Mutable;
 
 import java.util.function.Supplier;
 
 public class ShowItemPacket {
     private final Component COMPONENT;
-
-    public ShowItemPacket(ItemStack itemStack) {
-        this.COMPONENT = itemStack.getDisplayName();
-    }
 
     public ShowItemPacket(Component component) {
         this.COMPONENT = component;

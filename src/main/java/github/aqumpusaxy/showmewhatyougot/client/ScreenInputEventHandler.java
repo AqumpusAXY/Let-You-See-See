@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import github.aqumpusaxy.showmewhatyougot.compat.jei.JeiScreenInputHandler;
 import github.aqumpusaxy.showmewhatyougot.lib.Constants;
 import github.aqumpusaxy.showmewhatyougot.network.SMWYGNetworkManager;
-import github.aqumpusaxy.showmewhatyougot.network.ShowItemPacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -33,18 +32,22 @@ public class ScreenInputEventHandler {
 
             Screen screen = event.getScreen();
             if (screen instanceof AbstractContainerScreen<?> containerScreen) {
-                Slot hoveredSlot = containerScreen.getSlotUnderMouse();
-                if (hoveredSlot == null) return;
-
-                ItemStack itemStack = hoveredSlot.getItem();
-                if (itemStack.isEmpty()) return;
-
-                SMWYGNetworkManager.INSTANCE.sendToServer(new ShowItemPacket(itemStack));
+                handleContainerInput(containerScreen);
             }
 
             if (ModList.get().isLoaded("jei")) {
-                JeiScreenInputHandler.handleJeiInput();
+                JeiScreenInputHandler.getInstance().handleJeiInput();
             }
         }
+    }
+
+    private static void handleContainerInput(AbstractContainerScreen<?> containerScreen) {
+        Slot hoveredSlot = containerScreen.getSlotUnderMouse();
+        if (hoveredSlot == null) return;
+
+        ItemStack itemStack = hoveredSlot.getItem();
+        if (itemStack.isEmpty()) return;
+
+        SMWYGNetworkManager.sendComponentToServer(itemStack.getDisplayName());
     }
 }
