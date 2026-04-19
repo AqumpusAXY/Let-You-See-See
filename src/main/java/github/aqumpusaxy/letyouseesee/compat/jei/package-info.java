@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package github.aqumpusaxy.showmewhatyougot.compat.jei;
+package github.aqumpusaxy.letyouseesee.compat.jei;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

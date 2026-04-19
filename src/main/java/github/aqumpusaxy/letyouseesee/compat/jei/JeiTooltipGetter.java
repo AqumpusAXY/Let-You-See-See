@@ -1,4 +1,4 @@
-package github.aqumpusaxy.showmewhatyougot.compat.jei;
+package github.aqumpusaxy.letyouseesee.compat.jei;
 
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.ingredients.IIngredientRenderer;
@@ -21,7 +21,7 @@ public class JeiTooltipGetter {
 
     @SuppressWarnings("removal")
     public static <T> Component getIngredientComponent(T ingredient) {
-        Optional<IIngredientType<T>> ingredientType = SMWYGJeiPlugin.getIngredientManager().getIngredientTypeChecked(ingredient);
+        Optional<IIngredientType<T>> ingredientType = ModJeiPlugin.getIngredientManager().getIngredientTypeChecked(ingredient);
         if (ingredientType.isEmpty()) return Component.empty();
         if (ingredientType.get().getUid().equals("item_stack")) {
             return ((ItemStack) ingredient).getDisplayName();

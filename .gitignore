@@ -24,6 +24,9 @@ replay-recordings/
 ### caches ###
 /src/generated/resources/.cache
 
+### Code Arts ###
+.codeartsdoer/
+
 ### Misc ###
 *.tmp
 *.bak

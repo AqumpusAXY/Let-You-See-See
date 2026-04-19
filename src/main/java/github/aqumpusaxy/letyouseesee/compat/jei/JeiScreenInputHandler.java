@@ -1,6 +1,6 @@
-package github.aqumpusaxy.showmewhatyougot.compat.jei;
+package github.aqumpusaxy.letyouseesee.compat.jei;
 
-import github.aqumpusaxy.showmewhatyougot.network.SMWYGNetworkManager;
+import github.aqumpusaxy.letyouseesee.network.ModNetworkHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.gui.input.IClickableIngredientInternal;
@@ -25,7 +25,7 @@ public class JeiScreenInputHandler {
                .map(IClickableIngredientInternal::getTypedIngredient)
                .map(ITypedIngredient::getIngredient)
                .ifPresent(ingredient ->
-                       SMWYGNetworkManager.sendComponentToServer(JeiTooltipGetter.getIngredientComponent(ingredient))
+                       ModNetworkHandler.sendComponentToServer(JeiTooltipGetter.getIngredientComponent(ingredient))
                );
         //TODO:点击聊天栏中的物品添加到书签
     }

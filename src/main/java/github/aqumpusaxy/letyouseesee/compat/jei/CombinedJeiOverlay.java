@@ -1,4 +1,4 @@
-package github.aqumpusaxy.showmewhatyougot.compat.jei;
+package github.aqumpusaxy.letyouseesee.compat.jei;
 
 import mezz.jei.api.runtime.IBookmarkOverlay;
 import mezz.jei.api.runtime.IIngredientListOverlay;
