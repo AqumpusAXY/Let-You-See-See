@@ -1,7 +1,7 @@
-package github.aqumpusaxy.showmewhatyougot.client;
+package github.aqumpusaxy.letyouseesee.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import github.aqumpusaxy.showmewhatyougot.lib.Constants;
+import github.aqumpusaxy.letyouseesee.common.Constants;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;

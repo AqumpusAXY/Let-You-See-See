@@ -1,12 +1,12 @@
-package github.aqumpusaxy.showmewhatyougot.network;
+package github.aqumpusaxy.letyouseesee.network;
 
-import github.aqumpusaxy.showmewhatyougot.lib.Constants;
+import github.aqumpusaxy.letyouseesee.common.Constants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class SMWYGNetworkManager {
+public class ModNetworkHandler {
     private static final String PROTOCOL_VERSION = "1";
     private static int packetId = 0;
 

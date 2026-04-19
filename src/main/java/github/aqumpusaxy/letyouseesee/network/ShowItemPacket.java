@@ -1,4 +1,4 @@
-package github.aqumpusaxy.showmewhatyougot.network;
+package github.aqumpusaxy.letyouseesee.network;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;

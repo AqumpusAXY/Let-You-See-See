@@ -1,6 +1,6 @@
-package github.aqumpusaxy.showmewhatyougot.compat.jei;
+package github.aqumpusaxy.letyouseesee.compat.jei;
 
-import github.aqumpusaxy.showmewhatyougot.lib.Constants;
+import github.aqumpusaxy.letyouseesee.common.Constants;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.runtime.IIngredientManager;
@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("unused")
 @JeiPlugin
-public class SMWYGJeiPlugin implements IModPlugin {
+public class ModJeiPlugin implements IModPlugin {
     private static IJeiRuntime jeiRuntime;
     private static IIngredientManager ingredientManager;
 

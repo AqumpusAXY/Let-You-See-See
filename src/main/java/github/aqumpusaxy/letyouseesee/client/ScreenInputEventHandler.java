@@ -1,9 +1,9 @@
-package github.aqumpusaxy.showmewhatyougot.client;
+package github.aqumpusaxy.letyouseesee.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import github.aqumpusaxy.showmewhatyougot.compat.jei.JeiScreenInputHandler;
-import github.aqumpusaxy.showmewhatyougot.lib.Constants;
-import github.aqumpusaxy.showmewhatyougot.network.SMWYGNetworkManager;
+import github.aqumpusaxy.letyouseesee.common.Constants;
+import github.aqumpusaxy.letyouseesee.compat.jei.JeiScreenInputHandler;
+import github.aqumpusaxy.letyouseesee.network.ModNetworkHandler;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -48,6 +48,6 @@ public class ScreenInputEventHandler {
         ItemStack itemStack = hoveredSlot.getItem();
         if (itemStack.isEmpty()) return;
 
-        SMWYGNetworkManager.sendComponentToServer(itemStack.getDisplayName());
+        ModNetworkHandler.sendComponentToServer(itemStack.getDisplayName());
     }
 }
