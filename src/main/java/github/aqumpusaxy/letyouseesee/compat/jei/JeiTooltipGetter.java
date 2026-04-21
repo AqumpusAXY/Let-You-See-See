@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//TODO:重构这个类的逻辑
 public class JeiTooltipGetter {
     private static final Map<IIngredientType<?>, IIngredientRenderer<?>> RENDERERS = new HashMap<>();
 
