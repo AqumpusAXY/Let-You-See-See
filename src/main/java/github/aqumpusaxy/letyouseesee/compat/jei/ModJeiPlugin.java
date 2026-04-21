@@ -1,5 +1,6 @@
 package github.aqumpusaxy.letyouseesee.compat.jei;
 
+import github.aqumpusaxy.letyouseesee.client.IngredientDetectorChain;
 import github.aqumpusaxy.letyouseesee.common.Constants;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -14,10 +15,14 @@ public class ModJeiPlugin implements IModPlugin {
     private static IIngredientManager ingredientManager;
 
     public static IJeiRuntime getJeiRuntime() {
+        if (jeiRuntime == null) throw new IllegalStateException("JeiRuntime is not available");
+
         return jeiRuntime;
     }
 
     public static IIngredientManager getIngredientManager() {
+        if (ingredientManager == null) throw new IllegalStateException("IngredientManager is not available");
+
         return ingredientManager;
     }
 
@@ -31,7 +36,10 @@ public class ModJeiPlugin implements IModPlugin {
         jeiRuntime = runtime;
         ingredientManager = runtime.getIngredientManager();
 
-        JeiScreenInputHandler.init(runtime);
+        JeiIngredientDetector.init(runtime);
+        IngredientDetectorChain.INSTANCE.addDetector(JeiIngredientDetector.getInstance());
+        IngredientDetectorChain.INSTANCE.sortDetectors();
+
         ingredientManager.getRegisteredIngredientTypes()
                 .forEach(ingredientType -> JeiTooltipGetter.addRenderer(
                         ingredientType,
