@@ -13,14 +13,22 @@ public class ClientJeiCompatibleCommandRegistry {
     @SubscribeEvent
     public static void onClientCommandRegister(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("lyss")
-                .then(Commands.literal("addBookmark")
-                        .then(Commands.argument("text", StringArgumentType.string())
-                                .executes(ctx -> {
-                                    System.out.println(ctx.getArgument("text", String.class));
-                                    return 1;
-                                })
-                        )
+            .then(Commands.literal("addBookmark")
+                .then(Commands.argument("text", StringArgumentType.string())
+                    .executes(ctx -> {
+                        String text = ctx.getArgument("text", String.class);
+                        var ingredient = github.aqumpusaxy.letyouseesee.client.IngredientUtil.fromString(text);
+                        if (ingredient != null) {
+                        github.aqumpusaxy.letyouseesee.client.JeiBookmarkHelper.addBookmark(ingredient);
+                        ctx.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("已添加到JEI书签"), false);
+                        return 1;
+                        } else {
+                        ctx.getSource().sendFailure(net.minecraft.network.chat.Component.literal("无法识别该物品"));
+                        return 0;
+                        }
+                    })
                 )
+            )
         );
     }
 }

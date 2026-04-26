@@ -32,3 +32,6 @@ replay-recordings/
 *.bak
 *.swp
 *~
+
+### Vscode ###
+.vscode/
