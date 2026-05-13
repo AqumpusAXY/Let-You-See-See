@@ -39,12 +39,5 @@ public class ModJeiPlugin implements IModPlugin {
         JeiIngredientDetector.init(runtime);
         IngredientDetectorChain.INSTANCE.addDetector(JeiIngredientDetector.getInstance());
         IngredientDetectorChain.INSTANCE.sortDetectors();
-
-        ingredientManager.getRegisteredIngredientTypes()
-                .forEach(ingredientType -> JeiTooltipGetter.addRenderer(
-                        ingredientType,
-                        ingredientManager.getIngredientRenderer(ingredientType)
-                        )
-                );
     }
 }

@@ -4,15 +4,11 @@ import github.aqumpusaxy.letyouseesee.api.IIngredientDetector;
 import net.minecraft.client.gui.screens.Screen;
 
 import javax.annotation.Nullable;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
 
 public class IngredientDetectorChain {
     public static final IngredientDetectorChain INSTANCE = new IngredientDetectorChain();
-    private final CopyOnWriteArrayList<IIngredientDetector> detectors = new CopyOnWriteArrayList<>();
-
-    static {
-        INSTANCE.addDetector(VanillaIngredientDetector.getInstance());
-    }
+    private final ArrayList<IIngredientDetector> detectors = new ArrayList<>();
 
     public void sortDetectors() {
         detectors.sort((d1, d2) -> d2.getPriority() - d1.getPriority());

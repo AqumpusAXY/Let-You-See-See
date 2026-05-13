@@ -11,15 +11,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-//TODO:重构这个类的逻辑
 public class JeiTooltipGetter {
-    private static final Map<IIngredientType<?>, IIngredientRenderer<?>> RENDERERS = new HashMap<>();
-
     @SuppressWarnings("removal")
     public static <T> Component getIngredientComponent(T ingredient) {
         Optional<IIngredientType<T>> ingredientType = ModJeiPlugin.getIngredientManager().getIngredientTypeChecked(ingredient);
@@ -28,18 +23,11 @@ public class JeiTooltipGetter {
             return ((ItemStack) ingredient).getDisplayName();
         }
 
-        @SuppressWarnings("unchecked")
-        IIngredientRenderer<T> renderer = (IIngredientRenderer<T>) RENDERERS.get(ingredientType.get());
-        if (renderer == null) return Component.empty();
-
+        IIngredientRenderer<T> renderer = ModJeiPlugin.getIngredientManager().getIngredientRenderer(ingredientType.get());
         ITooltipBuilder tooltipBuilder = new JeiTooltip();
         renderer.getTooltip(tooltipBuilder, ingredient, TooltipFlag.NORMAL);
 
         return toStyledComponent(tooltipBuilder.toLegacyToComponents());
-    }
-
-    public static void addRenderer(IIngredientType<?> ingredientType, IIngredientRenderer<?> ingredientRenderer) {
-        RENDERERS.put(ingredientType, ingredientRenderer);
     }
 
     private static MutableComponent toStyledComponent(List<Component> components) {
