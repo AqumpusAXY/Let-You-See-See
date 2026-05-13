@@ -11,7 +11,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class VanillaIngredientDetector implements IIngredientDetector {
-    private static final VanillaIngredientDetector INSTANCE = new VanillaIngredientDetector();
+    private static VanillaIngredientDetector INSTANCE;
+    private static boolean initialized = false;
+    private static final int PRIORITY = 0;
 
     private VanillaIngredientDetector() {}
 
@@ -35,10 +37,17 @@ public class VanillaIngredientDetector implements IIngredientDetector {
 
     @Override
     public int getPriority() {
-        return 0;
+        return PRIORITY;
     }
 
-    public static VanillaIngredientDetector getInstance() {
+    public static void init() {
+        if (initialized) throw new IllegalStateException("VanillaIngredientDetector is already initialized");
+
+        INSTANCE = new VanillaIngredientDetector();
+        initialized = true;
+    }
+
+    public static IIngredientDetector getInstance() {
         return INSTANCE;
     }
 }

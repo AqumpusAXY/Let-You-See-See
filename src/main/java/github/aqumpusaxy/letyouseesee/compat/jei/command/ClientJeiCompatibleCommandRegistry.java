@@ -1,8 +1,12 @@
 package github.aqumpusaxy.letyouseesee.compat.jei.command;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.CommandDispatcher;
 import github.aqumpusaxy.letyouseesee.common.Constants;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.item.ItemArgument;
+import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,23 +16,21 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientJeiCompatibleCommandRegistry {
     @SubscribeEvent
     public static void onClientCommandRegister(RegisterClientCommandsEvent event) {
-        event.getDispatcher().register(Commands.literal("lyss")
-            .then(Commands.literal("addBookmark")
-                .then(Commands.argument("text", StringArgumentType.string())
-                    .executes(ctx -> {
-                        String text = ctx.getArgument("text", String.class);
-                        var ingredient = github.aqumpusaxy.letyouseesee.client.IngredientUtil.fromString(text);
-                        if (ingredient != null) {
-                        github.aqumpusaxy.letyouseesee.client.JeiBookmarkHelper.addBookmark(ingredient);
-                        ctx.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("已添加到JEI书签"), false);
-                        return 1;
-                        } else {
-                        ctx.getSource().sendFailure(net.minecraft.network.chat.Component.literal("无法识别该物品"));
-                        return 0;
-                        }
-                    })
+        register(event.getDispatcher(), event.getBuildContext());
+    }
+
+    private static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx) {
+        dispatcher.register(Commands.literal("lyss")
+                .then(Commands.literal("addJEIBookmark")
+                        .then(Commands.literal("item_stack")
+                                .then(Commands.argument("itemStack", ItemArgument.item(ctx))
+                                        .executes(cmd -> {
+                                            System.out.println(cmd.getArgument("itemStack", ItemInput.class).getItem());
+                                            return 1;
+                                        })
+                                )
+                        )
                 )
-            )
         );
     }
 }

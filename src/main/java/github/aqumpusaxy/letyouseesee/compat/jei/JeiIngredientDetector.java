@@ -18,6 +18,8 @@ import java.util.Optional;
 
 public class JeiIngredientDetector implements IIngredientDetector {
     private static JeiIngredientDetector INSTANCE;
+    private static boolean initialized = false;
+    private static final int PRIORITY = 100;
 
     private final CombinedJeiOverlay COMBINED_JEI_OVERLAY;
 
@@ -31,7 +33,8 @@ public class JeiIngredientDetector implements IIngredientDetector {
 
     @Override
     public @Nullable DetectedIngredient detect(Screen screen) {
-        ITypedIngredient<?> typedIngredient = COMBINED_JEI_OVERLAY.getIngredientUnderMouse(MouseUtil.getX(), MouseUtil.getY())
+        ITypedIngredient<?> typedIngredient = COMBINED_JEI_OVERLAY
+                .getIngredientUnderMouse(MouseUtil.getX(), MouseUtil.getY())
                 .findFirst()
                 .map(IClickableIngredientInternal::getTypedIngredient)
                 .orElse(null);
@@ -41,24 +44,21 @@ public class JeiIngredientDetector implements IIngredientDetector {
         String type = typedIngredient.getType().getUid();
         Optional<ItemStack> itemStack = typedIngredient.getItemStack();
         Component info = itemStack.map(ItemStack::getDisplayName)
-                .orElseGet(() -> JeiTooltipGetter.getIngredientComponent(typedIngredient.getIngredient())
-                );
+                .orElseGet(() -> JeiTooltipGetter.getIngredientComponent(typedIngredient.getIngredient()));
 
-        return new DetectedIngredient(
-                id,
-                type,
-                info,
-                itemStack
-        );
+        return new DetectedIngredient(id, type, info, itemStack);
     }
 
     @Override
     public int getPriority() {
-        return 100;
+        return PRIORITY;
     }
 
     public static void init(IJeiRuntime runtime) {
+        if (initialized) throw new IllegalStateException("JeiIngredientDetector is already initialized");
+
         INSTANCE = new JeiIngredientDetector(runtime);
+        initialized = true;
     }
 
     public static IIngredientDetector getInstance() {
