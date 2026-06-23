@@ -14,7 +14,7 @@ public class ModNetworkHandler {
             ResourceLocation.fromNamespaceAndPath(Constants.MODID, "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
+            s -> true
     );
 
     public static void register() {
